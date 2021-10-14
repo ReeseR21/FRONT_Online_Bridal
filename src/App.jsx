@@ -25,8 +25,8 @@
 
 
 import React, { useState, useEffect} from 'react';
-// import Vendor from './components/Vendor';
 import './App.css';
+import VendorList from './components/VendorList/VendorList';
 
 function App() {
 
@@ -51,14 +51,8 @@ function App() {
                 {/* <center><h3>Helping you to plan your big day!</h3></center> */}
                 </header>
                 <div className="layout">
-                    <div>
-                        {vendors.map(vendor => {
-                            return <h2>{ vendor.business_name}</h2>
-                        })}
-                    </div>
-                <div>Vendor Details</div>
-                {/* <div>Share</div> */}
-                {/* <center><h3>For the bride who wants to keep it simple!</h3></center> */}
+                    <VendorList vendors={vendors} />                
+                    <div>Vendor Details</div>               
                 </div>
         </div>
     );
