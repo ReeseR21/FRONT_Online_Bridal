@@ -21,11 +21,24 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
   }
 
   .pink {
     color:deeppink
   }
-   
+
+  .purple {
+    color:deeppink
+  }
+  
+  .rate-container {
+    margin-top: 20px;
+    border-top: 2px solid purple;
+  }
+
+  .rate-container .fa-heart {
+    font-size: 1.10rem;
+    cursor: pointer;
+  }

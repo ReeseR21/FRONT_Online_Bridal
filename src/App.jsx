@@ -8,7 +8,7 @@
 //     return (
 //         <div className="App">
 //             <header className="App-header">
-//                 <center><h1>Simply Bridal</h1></center>
+//                 <center><h1>Simply Bridal of Phoenix</h1></center>
 //                 <center><h3>Planning and Community</h3></center>
 //                 <div className="layout">
 //                 <div>Create</div>
@@ -28,14 +28,16 @@ import React, { useState, useEffect} from 'react';
 import './App.css';
 import VendorList from './components/VendorList/VendorList';
 import VendorDetails from './components/VendorDetails/VendorDetails';
+import VendorForm from './components/VendorForm/VendorForm';
 
 function App() {
 
     const [vendors, setVendor] = useState([]);
     const [selectedVendor, setSelectedVendor] = useState(null);
+    const [editedVendor, setEditedVendor] = useState(null);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/vendor/vendor/", {
+        fetch("http://127.0.0.1:8000/vendor/vendors/", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,6 +52,12 @@ function App() {
         setSelectedVendor(vendor);
         // console.log(vendor.business_name);
     }
+    const loadVendor = vendor => {
+        setSelectedVendor(vendor);
+    }
+    const editClicked = vendor => {
+        setEditedVendor(vendor)
+    }
 
     return (
         <div className="App">
@@ -58,8 +66,10 @@ function App() {
                 {/* <center><h3>Helping you to plan your big day!</h3></center> */}
                 </header>
                 <div className="layout">
-                    <VendorList vendors={vendors} vendorClicked={vendorClicked} />                
-                    <VendorDetails vendor={selectedVendor}/>               
+                    {/* <h2>Vendor Category</h2> */}
+                    <VendorList vendors={vendors} vendorClicked={vendorClicked} editClicked={editClicked}/>                
+                    <VendorDetails vendor={selectedVendor} updateVendor={loadVendor}/>
+                    <VendorForm vendor={editedVendor} />               
                 </div>
         </div>
     );
