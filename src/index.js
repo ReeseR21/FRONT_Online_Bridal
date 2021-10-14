@@ -4,17 +4,17 @@ import './index.css';
 import App from './App';
 // import Vendor from './components/vendor';
 // import Auth from './auth';
-import { Route, BrowserRouter } from 'react-router-dom';
+// import { Route, BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      {/* <App /> */}
+    {/* <BrowserRouter> */}
+      <App />
       {/* <Route exact path="/" components={Auth} /> */}
-      <Route exact path="/vendor" components={App} />
+      {/* <Route exact path="/vendor" components={App} /> */}
       {/* <Vendor /> */}
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
