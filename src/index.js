@@ -1,13 +1,20 @@
 import React from 'react';
-import App from './App';
 import ReactDOM from 'react-dom';
-// import './index.css';
-// import reportWebVitals from './reportWebVitals';
+import './index.css';
+import App from './App';
+// import Vendor from './components/vendor';
+// import Auth from './auth';
+import { Route, BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      {/* <App /> */}
+      {/* <Route exact path="/" components={Auth} /> */}
+      <Route exact path="/vendor" components={App} />
+      {/* <Vendor /> */}
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -16,3 +23,5 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
+
+
