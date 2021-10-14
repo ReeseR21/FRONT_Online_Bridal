@@ -1,10 +1,19 @@
 import React from 'react';
 
 function VendorList(props) {
-    return(
+
+    const vendorClicked = vendor => {
+        props.vendorClicked(vendor)
+    }
+
+    return (
         <div>
             { props.vendors && props.vendors.map( vendor => {
-            return <h2>{ vendor.business_name}</h2>
+            return (
+             <div key={vendor.id}>
+                <h2 onClick={event => vendorClicked(vendor)}>{ vendor.business_name}</h2>
+             </div>
+            )
             })}
         </div>
     )

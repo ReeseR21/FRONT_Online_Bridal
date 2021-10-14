@@ -27,10 +27,12 @@
 import React, { useState, useEffect} from 'react';
 import './App.css';
 import VendorList from './components/VendorList/VendorList';
+import VendorDetails from './components/VendorDetails/VendorDetails';
 
 function App() {
 
     const [vendors, setVendor] = useState([]);
+    const [selectedVendor, setSelectedVendor] = useState(null);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/vendor/vendor/", {
@@ -44,15 +46,20 @@ function App() {
       .catch( error => console.log(error))
     }, [])
 
+    const vendorClicked = vendor => {
+        setSelectedVendor(vendor);
+        // console.log(vendor.business_name);
+    }
+
     return (
         <div className="App">
             <header className="App-header">
-                <center><h1>Event Vendors</h1></center>
+                <center><h1>Vendor Directory</h1></center>
                 {/* <center><h3>Helping you to plan your big day!</h3></center> */}
                 </header>
                 <div className="layout">
-                    <VendorList vendors={vendors} />                
-                    <div>Vendor Details</div>               
+                    <VendorList vendors={vendors} vendorClicked={vendorClicked} />                
+                    <VendorDetails vendor={selectedVendor}/>               
                 </div>
         </div>
     );
