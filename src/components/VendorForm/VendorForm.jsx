@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API from "../ApiFile";
 
 function VendorForm(props) {
     const [business_name, setBusiness_Name ] = useState(props.vendor.business_name);
@@ -11,8 +12,10 @@ function VendorForm(props) {
     const [product_service, setProduct_Service ] = useState(props.vendor.Product_Service);
     const [price_range, setPrice_Range ] = useState(props.vendor.price_range);
 
-const updateClicked = () => {
-   console.log('update here');
+    const updateClicked = () => {
+        API.updateVendor(props.vendor.id, {business_name, street, city, state, zip_code, business_phone, business_email, product_service, price_range})
+        .then( response => console.log(response))
+        .catch(error => console.log(error));
 }
 
     return (
