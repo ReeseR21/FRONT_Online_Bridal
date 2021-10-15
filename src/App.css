@@ -21,7 +21,7 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 50px;
   }
 
@@ -41,4 +41,14 @@
   .rate-container .fa-heart {
     font-size: 1.10rem;
     cursor: pointer;
+  }
+
+  .vendorItem {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .vendorItem svg {
+    font-size: 1.2rem;
+    margin: 16px 5px;
   }

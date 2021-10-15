@@ -24,7 +24,7 @@
 // export default App;
 
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import VendorList from './components/VendorList/VendorList';
 import VendorDetails from './components/VendorDetails/VendorDetails';
@@ -48,28 +48,30 @@ function App() {
       .catch( error => console.log(error))
     }, [])
 
-    const vendorClicked = vendor => {
-        setSelectedVendor(vendor);
-        // console.log(vendor.business_name);
-    }
+    // const vendorClicked = vendor => {
+    //     setSelectedVendor(vendor);
+    // }
     const loadVendor = vendor => {
         setSelectedVendor(vendor);
+        setEditedVendor(null);
     }
     const editClicked = vendor => {
-        setEditedVendor(vendor)
+        setEditedVendor(vendor);
+        setSelectedVendor(null);
     }
 
     return (
         <div className="App">
             <header className="App-header">
                 <center><h1>Vendor Directory</h1></center>
-                {/* <center><h3>Helping you to plan your big day!</h3></center> */}
+                <center><h3>Helping you to plan your big day!</h3></center>
                 </header>
                 <div className="layout">
                     {/* <h2>Vendor Category</h2> */}
-                    <VendorList vendors={vendors} vendorClicked={vendorClicked} editClicked={editClicked}/>                
+                    <VendorList vendors={vendors} vendorClicked={loadVendor} editClicked={editClicked}/>                
                     <VendorDetails vendor={selectedVendor} updateVendor={loadVendor}/>
-                    <VendorForm vendor={editedVendor} />               
+                    { editedVendor ? <VendorForm vendor={editedVendor} /> : null}
+                                   
                 </div>
         </div>
     );

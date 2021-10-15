@@ -15,7 +15,7 @@ function VendorList(props) {
         <div>
             { props.vendors && props.vendors.map( vendor => {
             return (
-             <div key={vendor.id}>
+             <div key={vendor.id} className="vendorItem">
                 <h2 onClick={event => vendorClicked(vendor)}>{ vendor.business_name}</h2>
                 <FontAwesomeIcon icon={faEdit} onClick={(vendor) => editClicked(vendor)}/>
                 <FontAwesomeIcon icon={faTrash}/>
