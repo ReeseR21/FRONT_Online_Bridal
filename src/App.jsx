@@ -65,7 +65,7 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <center><h1>Vendor Directory</h1></center>
-                <center><h3>Helping you to plan your big day!</h3></center>
+                <center><h3>---</h3></center>
                 </header>
                 <div className="layout">
                     <div>

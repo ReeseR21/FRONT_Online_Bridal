@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "./ApiFile";
+import { useCookies } from 'react-cookie';
 
 function Auth(){
 
     const [ username, setUsername ] = useState ('');
     const [ password, setPassword ] = useState('');
 
+    const [token, setToken] = useCookies(['vendortoken']);
+
+    useEffect( () => {
+        console.log(token);
+        if(token['vendortoken']) window.location.href = '/vendors';
+    }, [token])
+
     const loginClicked = () => {
-      API.loginUser(username, password)
-        .then( response => console.log(response))
+      API.loginUser({username, password})
+        .then( response => setToken('vendortoken',response.token))
         .catch( error => console.log(error))
     }
 
     return (
-      <div>
-        <h3>Welcome to your online bridal experience. Register or Login</h3>
-        <label htmlFor="username">Username</label><br/>
-        <input id="username" type="text" placeholder="username" value={"username"}
-            onChange={ event=> setUsername(event.target.value)}
-        /><br/>
+            <div>
+                <h3>Welcome to your online bridal experience. Register or Login</h3>
+                <label htmlFor="username">Username</label><br/>
+                <input id="username" type="text" placeholder="username" value={username}
+                    onChange={ event => setUsername(event.target.value)}
+                /><br/>
 
-        <label htmlFor="password">Password</label><br/>
-        <input id="password" type="password" placeholder="password" value={"password"}
-            onChange={ event=> setPassword(event.target.value)} /><br/>
-              <button onClick={loginClicked}>Login</button>
-    
-      </div>
+                <label htmlFor="password">Password</label><br/>
+                <input id="password" type="password" placeholder="password" value={password}
+                    onChange={ event => setPassword(event.target.value)} /><br/>
+                <button onClick={loginClicked}> Login</button>    
+            </div>
     )
 }
 

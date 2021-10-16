@@ -4,17 +4,24 @@ import './index.css';
 import App from './App';
 import Auth from './components/Auth';
 import { Route, BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+
+function Router() {
+
+  return(
+    <React.StrictMode>
+      <CookiesProvider>
+      <BrowserRouter>
+        <Route exact path="/" component={Auth} />
+        <Route exact path="/vendors" component={App} />
+      </BrowserRouter>
+      </CookiesProvider>
+    </React.StrictMode>
+  )
+}
 
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Route exact path="/" component={Auth} />
-      <Route exact path="/vendors" component={App} />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<Router />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
