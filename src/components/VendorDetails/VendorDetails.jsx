@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 function VendorDetails(props) {    
 
@@ -32,12 +32,11 @@ function VendorDetails(props) {
                 'Authorization': 'Token 297308b6e4022737b5f9517c7201e7a7277fb9b6'
         }
         })
-        .then( resp => resp.json())
-        .then( resp => props.updateVendor(resp))
+        .then( response => response.json())
+        .then( response => props.updateVendor(response))
         .catch( error => console.log(error))
     }
-
-
+    
     return (
         <React.Fragment>
           { vend ? (
@@ -64,7 +63,7 @@ function VendorDetails(props) {
                     return <FontAwesomeIcon key={index} icon={faHeart} className={highlighted > index - 1 ? 'pink':''}
                         onMouseEnter={highlightRate(index)}
                         onMouseLeave={highlightRate(-1)}
-                        onClick={(rateClicked(index))}
+                        onClick={rateClicked(index)}
                     />
                 })}
             

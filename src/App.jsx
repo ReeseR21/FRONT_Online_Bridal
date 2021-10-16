@@ -33,7 +33,7 @@ import VendorForm from './components/VendorForm/VendorForm';
 
 function App() {
 
-    const [vendors, setVendor] = useState([]);
+    const [vendors, setVendors] = useState([]);
     const [selectedVendor, setSelectedVendor] = useState(null);
     const [editedVendor, setEditedVendor] = useState(null);
 
@@ -45,7 +45,7 @@ function App() {
                 'Authorization': 'Token 297308b6e4022737b5f9517c7201e7a7277fb9b6'
         }
     }).then(resp => resp.json())
-      .then(resp => setVendor(resp))
+      .then(resp => setVendors(resp))
       .catch( error => console.log(error))
     }, [])
 
@@ -60,6 +60,33 @@ function App() {
         setEditedVendor(vendor);
         setSelectedVendor(null);
     }
+    const updatedVendor = vendor => {
+        const newVendors = vendors.map( vend => {
+            if (vend.id === vendor.id) {
+                return vendor;
+            }
+            return vend;
+        })
+        setVendors(newVendors)
+    }
+    const newVendor = () => {
+      setEditedVendor({business_name: '', street: '', city:'', state:'', zip_code:'', business_phone: '', business_email: '', product_service:'', price_range:''}); 
+      setSelectedVendor(null);  
+    }
+    const vendorCreated = vendor => {
+        const newVendors = [...vendors, vendor]
+        setVendors(newVendors);
+    }
+    const removeClicked = vendor => {
+        const newVendors = vendors.filter(vend => vend.id !== vendor.id);
+        // ( vend => {
+        //     if (vend.id === vendor.id) {
+        //         return false;
+        //     }
+        //     return true;
+        // })
+        setVendors(newVendors);
+    }     
 
     return (
         <div className="App">
@@ -69,12 +96,20 @@ function App() {
                 </header>
                 <div className="layout">
                     {/* <h2>Vendor Category</h2> */}
-                    <VendorList vendors={vendors} vendorClicked={loadVendor} editClicked={editClicked}/>                
+                    <div>
+                    <h3>Click on a vendor to view their details</h3>
+                    <div>
+                    <VendorList vendors={vendors} vendorClicked={loadVendor} editClicked={editClicked} removeClicked={removeClicked}
+                    />
+                    <button onClick={newVendor}>New Vendor</button>
+                    </div>
                     <VendorDetails vendor={selectedVendor} updateVendor={loadVendor}/>
-                    { editedVendor ? <VendorForm vendor={editedVendor} /> : null}
-                                   
-                </div>
+                    {editedVendor ? 
+                    <VendorForm vendor={editedVendor} updatedVendor={updatedVendor} vendorCreated={vendorCreated}/> : null}
+                </div>                
+            </div>
         </div>
+
     );
 }
 
