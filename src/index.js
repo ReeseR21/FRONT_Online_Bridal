@@ -2,19 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import Vendor from './components/vendor';
-// import Auth from './auth';
-// import { Route, BrowserRouter } from 'react-router-dom';
+import Auth from './components/Auth';
+import { Route, BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <BrowserRouter> */}
-      <App />
-      {/* <Route exact path="/" components={Auth} /> */}
-      {/* <Route exact path="/vendor" components={App} /> */}
-      {/* <Vendor /> */}
-    {/* </BrowserRouter> */}
+    <BrowserRouter>
+      <Route exact path="/" component={Auth} />
+      <Route exact path="/vendors" component={App} />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import API from "../ApiFile";
 
 function VendorForm(props) {
-//     const [id, setId ] = useState(props.vendor.id);
     const [business_name, setBusiness_Name ] = useState('');
     const [street, setStreet ] = useState('');
     const [city, setCity ] = useState('');
@@ -41,7 +40,6 @@ function VendorForm(props) {
     return (
         <React.Fragment>
           { props.vendor ? (
-            // <h1>{ props.vendor.business_name } edit</h1>
             <div>
                 <h3>Update or Add Your Company Information</h3>
                 <label htmlFor="business_name">Company</label><br/>
