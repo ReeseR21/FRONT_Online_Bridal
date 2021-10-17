@@ -6,59 +6,52 @@ function Auth(){
 
     const [ username, setUsername ] = useState ('');
     const [ password, setPassword ] = useState('');
+    const [ isLoginView, setIsLoginView ] = useState(true);
 
     const [token, setToken] = useCookies(['vendortoken']);
 
     useEffect( () => {
         console.log(token);
-        if(token['vendortoken']) window.location.href = '/vendors';
+      if(token['vendortoken']) window.location.href = '/vendors';
     }, [token])
 
     const loginClicked = () => {
       API.loginUser({username, password})
-        .then( response => setToken('vendortoken',response.token))
+        .then( response => setToken('vendortoken', response.token))
         .catch( error => console.log(error))
     }
+    const registerClicked = () => {
+        API.registerUser({username, password})
+            .then( () => loginClicked())
+            .catch( error => console.log(error))
+        }
+        const isDisabled = username.length === 0 || password.length === 0;
 
     return (
-            <div>
-                <h3>Welcome to your online bridal experience. Register or Login</h3>
+            <div className="App">
+                <header className="App-header">
+                    {isLoginView ? <h1>Login</h1> : <h1>Register</h1>}
+                </header>
+                <div className="login-container">
                 <label htmlFor="username">Username</label><br/>
                 <input id="username" type="text" placeholder="username" value={username}
                     onChange={ event => setUsername(event.target.value)}
                 /><br/>
-
                 <label htmlFor="password">Password</label><br/>
                 <input id="password" type="password" placeholder="password" value={password}
                     onChange={ event => setPassword(event.target.value)} /><br/>
-                <button onClick={loginClicked}> Login</button>    
+                        {isLoginView ?    
+                        <button onClick={loginClicked} disabled={isDisabled}>Login</button> :
+                        <button onClick={registerClicked} disabled={isDisabled}>Register</button>
+                    }
+
+                { isLoginView ?
+                <p onClick={()=> setIsLoginView(false)}>You don't have an account. Please register here.</p> :
+                <p onClick={()=> setIsLoginView(true)}>You already have an account. Please login here.</p>  
+                }     
             </div>
+        </div>
     )
 }
 
 export default Auth;
-
-// // import React, { useState } from 'react';
-// import './App.css';
-
-// function App() {
-
-// // const [bridalprofile, setProfile] = useState();
-
-//     return (
-//         <div className="App">
-//             <header className="App-header">
-//                 <center><h1>Simply Bridal of Phoenix</h1></center>
-//                 <center><h3>Planning and Community</h3></center>
-//                 <div className="layout">
-//                 <div>Create</div>
-//                 <div>Design</div>
-//                 <div>Share</div>
-//                 </div>
-//                 <center><h3>For the bride who wants to keep it simple!</h3></center>
-//             </header>
-//         </div>
-//     );
-// }
-
-// export default App;

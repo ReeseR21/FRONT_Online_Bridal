@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { useCookies } from 'react-cookie';
 
 function VendorDetails(props) {    
 
     const [ highlighted, setHighlighted ] = useState(-1);
+    const [token] = useCookies(['vendortoken']);
+
 
     let vend = props.vendor;
 
@@ -17,7 +20,7 @@ function VendorDetails(props) {
         method: 'POST',
         headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token 297308b6e4022737b5f9517c7201e7a7277fb9b6'
+                'Authorization': `Token ${token['vendortoken']}`
         },
         body: JSON.stringify( {stars: rate + 1} )
     })
@@ -29,7 +32,7 @@ function VendorDetails(props) {
         method: 'GET',
         headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token 297308b6e4022737b5f9517c7201e7a7277fb9b6'
+                'Authorization': `Token ${token['vendortoken']}`
         }
         })
         .then( response => response.json())

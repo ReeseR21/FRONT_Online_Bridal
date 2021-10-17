@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../ApiFile";
+import { useCookies } from 'react-cookie';
+
 
 function VendorForm(props) {
     const [business_name, setBusiness_Name ] = useState('');
@@ -11,6 +13,7 @@ function VendorForm(props) {
     const [business_email, setBusiness_Email ] = useState('');
     const [product_service, setProduct_Service ] = useState('');
     const [price_range, setPrice_Range ] = useState('');
+    const [token] = useCookies(['vendortoken']);
 
     useEffect( () => {
         setBusiness_Name(props.vendor.business_name)
@@ -26,13 +29,13 @@ function VendorForm(props) {
 
     const updateClicked = () => {
             console.log('update here');
-        API.updateVendor(props.vendor.id, {business_name, street, city, state, zip_code, business_phone, business_email, product_service, price_range})
+        API.updateVendor(props.vendor.id, {business_name, street, city, state, zip_code, business_phone, business_email, product_service, price_range}, token['vendortoken'])
         .then( response => props.updatedVendor(response))
         .catch(error => console.log(error));
     }
     const createClicked = () => {
         console.log('update here');
-     API.createVendor({business_name, street, city, state, zip_code, business_phone, business_email, product_service, price_range})
+     API.createVendor({business_name, street, city, state, zip_code, business_phone, business_email, product_service, price_range}, token['vendortoken'])
      .then( response => props.vendorCreated(response))
      .catch(error => console.log(error));
    }
